@@ -1,4 +1,41 @@
+
+// 全局样式
+body {
+  font-size: 14px;
+  color: var(--fx-text1);
+}
+a {
+  color: var(--fx-text2);
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+// 文字换行
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ellipsis2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ellipsis3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 :root {
   // 主题颜色
   --fx-primary: #FF523D;
+  --fx-text1: #121826;
+  --fx-text2: #3C3E42;
+  --fx-text3: #6F6F6F;
 }
