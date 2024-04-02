@@ -1,9 +1,23 @@
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import Home from "./pages/Home"
+import CityList from "./pages/CityList"
 function App() {
   return (
-    <div className="App">
-      熊猫租房
-    </div>
-  );
+    <Router>
+      <div className="App">
+        <ul>
+          <li>
+            <Link to="/home">首页</Link>
+          </li>
+          <li>
+            <Link to="/citylist">城市</Link>
+          </li>
+        </ul>
+        <Route path="/home" component={Home}></Route>
+        <Route path="/citylist" component={CityList}></Route>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
