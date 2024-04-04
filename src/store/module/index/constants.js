@@ -1,0 +1,2 @@
+// 切换当前城市
+export const CHANGE_CURRENTCITY = "CHANGE_CURRENTCITY"

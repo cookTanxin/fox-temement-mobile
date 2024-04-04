@@ -1,0 +1,21 @@
+.fxhedaer{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  .left{
+    h2{
+      font-size: 16px;
+    }
+    span{
+      font-size: 12px;
+      color: var(--fx-text3);
+      margin-top: 5px;
+    }
+  }
+  .right{
+    color: var(--fx-text4);
+  }
+}

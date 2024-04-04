@@ -11,7 +11,6 @@ import HouseList from "../HouseList"
 // ui
 import { TabBar } from "antd-mobile"
 // icon
-import { MessageOutline, MessageFill, UserOutline } from "antd-mobile-icons"
 import {
   HomeIcon,
   HomeIconActive,
@@ -27,51 +26,55 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // activeKey
+      activeKey: this.props.history.location.pathname,
+      // tabbar数据
       tabs: [
         {
-          key: "home",
+          key: "/home",
           title: "首页",
-          path: "/home/index",
+          path: "/home",
           icon: (active) => (active ? <HomeIconActive /> : <HomeIcon />)
         },
         {
-          key: "find",
+          key: "/home/houseList",
           title: "找房",
           path: "/home/houseList",
           icon: (active) => (active ? <FindIconActive /> : <FindIcon />)
         },
         {
-          key: "news",
+          key: "/home/news",
           title: "资讯",
-          path: "news",
+          path: "/home/news",
           icon: (active) => (active ? <NewsIconActive /> : <NewsIcon />)
         },
         {
-          key: "profile",
+          key: "/home/profile",
           title: "我的",
-          path: "profile",
+          path: "/home/profile",
           icon: (active) => (active ? <ProfileIconActive /> : <ProfileIcon />)
         }
-      ],
-      // 当前路由名称
-      currentRouteName: this.props.history.location.pathname
+      ]
     }
   }
   // 切换tabbar
   changeTab = (key) => {
-    console.log(key)
+    this.props.history.push(key)
+    this.setState({
+      activeKey: key
+    })
   }
   render() {
     return (
       <div className={style.homewrap}>
         <div className="content-area">
-          <Route path={"/home/index"} component={Index}></Route>
+          <Route exact path={"/home"} component={Index}></Route>
           <Route path={"/home/houseList"} component={HouseList}></Route>
           <Route path={"/home/news"} component={News}></Route>
           <Route path={"/home/profile"} component={Profile}></Route>
         </div>
         <div className={style.tabbar_area}>
-          <TabBar onChange={this.changeTab}>
+          <TabBar onChange={this.changeTab} activeKey={this.state.activeKey}>
             {this.state.tabs.map((item) => (
               <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
             ))}
@@ -79,6 +82,15 @@ class Home extends Component {
         </div>
       </div>
     )
+  }
+  // componentDisupdate 要使用if 条件语句
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // 判断当前路由名称和 当前的 key 是否一直 如果不一致以pathname
+    if (prevState.activeKey !== this.props.history.location.pathname) {
+      this.setState({
+        activeKey: this.props.history.location.pathname
+      })
+    }
   }
 }
 
