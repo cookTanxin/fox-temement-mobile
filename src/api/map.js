@@ -1,5 +1,3 @@
-import axios from "axios"
-
 export function getBAiDuIpCity() {
   return new Promise((resolve, reject) => {
     try {

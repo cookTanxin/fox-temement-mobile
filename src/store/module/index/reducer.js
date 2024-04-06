@@ -3,7 +3,7 @@ import { CHANGE_CURRENTCITY } from "./constants"
 const defaultData = {
   // 定位城市数据
   currentCity: {
-    name: "",
+    label: "",
     value: ""
   }
 }

@@ -23,7 +23,7 @@ import { joinImgUrl } from "../../utils"
 class Index extends Component {
   state = {
     // 当前城市信息
-    currentCity: "",
+    currentCity: {},
     // 轮播图数据
     swiperData: [],
     // 租房小组数据
@@ -68,7 +68,7 @@ class Index extends Component {
   // 获取租房小组数据
   getGroup = async () => {
     let params = {
-      area: "AREA|88cff55c-aaa4-e2e0"
+      area: this.state.currentCity.value
     }
     const data = await getGrousData(params)
     this.setState({
@@ -78,7 +78,7 @@ class Index extends Component {
   // 获取租房资讯数据
   getInfo = async () => {
     let params = {
-      area: "AREA|88cff55c-aaa4-e2e0"
+      area: this.state.currentCity.value
     }
     const data = await getInfoData(params)
     this.setState({
@@ -139,7 +139,7 @@ class Index extends Component {
     return (
       <div className={style.indexwrap}>
         <div className={style.header_area}>
-          <FxHeaderSearch city={this.state.currentCity}></FxHeaderSearch>
+          <FxHeaderSearch city={this.state.currentCity.label}></FxHeaderSearch>
         </div>
         <div className={style.swiper_area}>
           {this.state.swiperData.length > 0 ? (
@@ -175,19 +175,20 @@ class Index extends Component {
     )
   }
   async componentDidMount() {
+    // 订阅store 的改变
     this.subscribe = store.subscribe(() => {
       this.setState({
-        currentCity: store.getState().indexStore.currentCity.label
+        currentCity: store.getState().indexStore.currentCity
       })
     })
+    // 获取当前城市
+    await store.dispatch(getUserCurrentCity())
     // 录播图数据
     await this.getSwiper()
     // 租房小组
     await this.getGroup()
     // 获取租房资讯
     await this.getInfo()
-    // 获取当前城市
-    await store.dispatch(getUserCurrentCity())
   }
 }
 

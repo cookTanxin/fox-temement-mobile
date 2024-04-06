@@ -4,11 +4,10 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import Home from "./pages/Home"
 import CityList from "./pages/CityList"
 import React from "react"
-
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App" style={{ height: "100vh" }}>
         <Switch>
           <Route exact path={"/"} render={() => <Redirect to={"/home"}></Redirect>}></Route>
           <Route path="/home" component={Home}></Route>
