@@ -1,5 +1,6 @@
 import React from "react"
 import { NavBar } from "antd-mobile"
+import { withRouter } from "react-router-dom"
 import PropTypes from "prop-types"
 import style from "./index.module.scss"
 
@@ -7,9 +8,12 @@ function FxNavBar(props) {
   const back = () => {
     props.back()
   }
+  const defaultClick = () => {
+    props.history.go(-1)
+  }
   return (
     <div className={style.navcontent}>
-      <NavBar className={style.ignorenavbar} onBack={back}>
+      <NavBar className={style.ignorenavbar} onBack={defaultClick || back}>
         {props.children}
       </NavBar>
     </div>
@@ -17,8 +21,8 @@ function FxNavBar(props) {
 }
 // 组件类型
 FxNavBar.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.string.isRequired,
   back: PropTypes.func
 }
 
-export default FxNavBar
+export default withRouter(FxNavBar)

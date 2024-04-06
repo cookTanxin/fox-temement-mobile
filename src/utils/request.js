@@ -5,7 +5,7 @@ const instance = axios.create({
   // 基础地址
   baseURL: process.env.REACT_APP_BASE_API,
   // 请求超时时间
-  timeout: 10000
+  timeout: 80000
 })
 
 // 请求拦截器

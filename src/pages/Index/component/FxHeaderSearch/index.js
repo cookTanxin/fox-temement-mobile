@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { withRouter } from "react-router-dom"
 import style from "./index.module.scss"
-import searchImg from "./image/search-icon.png"
+import locationimg from "./image/location.png"
 import arrow from "./image/arrow.png"
 class FxHeaderSearch extends Component {
   goPage = () => {
@@ -19,7 +19,7 @@ class FxHeaderSearch extends Component {
           </div>
         </div>
         <div className={style.search}>
-          <img src={searchImg} alt="search" />
+          <img src={locationimg} alt="search" />
         </div>
       </div>
     )

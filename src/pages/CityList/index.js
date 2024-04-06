@@ -85,10 +85,7 @@ const CityList = (props) => {
       listRef.current.measureAllRows()
     }
   }, [dispatch, cityData.list.length])
-  // 返回页面
-  const backPage = () => {
-    props.history.go(-1)
-  }
+
   // 获取每一行的高度
   const getRowHeight = ({ index }) => {
     return titleHeight + cityData.list[cityData.index[index]].length * cityHeight
@@ -102,7 +99,7 @@ const CityList = (props) => {
   return (
     <div className={stylepage.ignorecitylistpage}>
       <div className={stylepage.ignorenavbar}>
-        <FxNavBar back={backPage}>城市列表</FxNavBar>
+        <FxNavBar>城市列表</FxNavBar>
       </div>
 
       {/*列表数据展示*/}

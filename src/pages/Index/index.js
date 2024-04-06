@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import style from "./index.module.scss"
-import { Grid, Skeleton } from "antd-mobile"
+import { Grid, Skeleton, Divider } from "antd-mobile"
 // component
 import FxHeaderSearch from "./component/FxHeaderSearch"
 import FxSwiper from "./component/FxSwiper"
@@ -169,6 +169,7 @@ class Index extends Component {
             ) : (
               <Skeleton.Paragraph lineCount={5} />
             )}
+            {this.state.groupList.length > 0 && <Divider>没有更多数据了</Divider>}
           </div>
         </div>
       </div>
