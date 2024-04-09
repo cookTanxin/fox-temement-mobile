@@ -9,7 +9,12 @@ function FxNavBar(props) {
     props.back()
   }
   const defaultClick = () => {
-    props.history.go(-1)
+    console.log(props.history)
+    if (props.history.length <= 1) {
+      props.history.push("/")
+    } else {
+      props.history.go(-1)
+    }
   }
   return (
     <div className={style.navcontent}>

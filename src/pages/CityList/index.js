@@ -34,8 +34,6 @@ const CityList = (props) => {
   const listRef = useRef(null)
   // hook
   const [currentIndex, setCurrentIndex] = useState(0)
-  // 是否需要滚动计算
-  const [computedIndex, setComputedIndex] = useState(true)
   // 获取store全局数据中的数据
   const { cityData } = useSelector((state) => {
     return {
@@ -83,12 +81,12 @@ const CityList = (props) => {
     // 派发store事件
     dispatch(getCityListData())
   }, [dispatch])
-
+  // 当有列表数据以后再调用方法
   useEffect(() => {
     if (cityData.index.length > 0) {
       listRef.current.measureAllRows()
     }
-  }, [])
+  }, [cityData.index.length])
 
   // 获取每一行的高度
   const getRowHeight = ({ index }) => {
@@ -96,7 +94,7 @@ const CityList = (props) => {
   }
   // 渲染的时候触发的事件
   const onRowsRendered = (data) => {
-    if (currentIndex !== data.startIndex && computedIndex) {
+    if (currentIndex !== data.startIndex) {
       setCurrentIndex(data.startIndex)
     }
   }

@@ -1,0 +1,67 @@
+.roomitem{
+  display: flex;
+  padding:10px;
+  border-bottom:1px solid #f5f5f5;
+  :global(.adm-image){
+     width: 140px;
+    height: 100px;
+    }
+  .rightcontent{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .taglist{
+      display: flex;
+      .itemtag{
+        margin-right: 3px;
+        font-size: 10px;
+        padding: 3px 5px;
+        border-radius: 3px;
+        &:nth-child(1) {
+          background-color: #ecf5ff;
+          color: #409eff;
+          border: 1px solid #d9ecff;
+        }
+
+        &:nth-child(2) {
+          background-color: #f0f9eb;
+          color: #67c23a;
+          border: 1px solid #e1f3d8;
+        }
+
+        &:nth-child(3) {
+          background-color: #e1f5f8;
+          color: #39becd;
+          border: 1px solid #d9ecff;
+        }
+
+        &:nth-child(4) {
+          background-color: #e6fcff;
+          color: #3ad1f7;
+          border: 1px solid #d9ecff;
+        }
+
+        &:nth-child(5) {
+          margin-top: 3px;
+          background-color: #e6fcff;
+          color: #3ad1f7;
+          border: 1px solid #d9ecff;
+        }
+      }
+    }
+    .price{
+      font-size: 16px;
+      color: red;
+      font-weight: bold;
+    }
+    .desctitle{
+      font-size: 12px;
+      color: #999;
+    }
+    .roomtitle{
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}
