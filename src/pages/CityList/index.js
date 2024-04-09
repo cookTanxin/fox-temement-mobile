@@ -31,11 +31,17 @@ const formatTitle = (title) => {
 const CityList = (props) => {
   const dispatch = useDispatch()
   // hook
-  const listRef = useRef()
+  const listRef = useRef(null)
   // hook
   const [currentIndex, setCurrentIndex] = useState(0)
   // 是否需要滚动计算
   const [computedIndex, setComputedIndex] = useState(true)
+  // 获取store全局数据中的数据
+  const { cityData } = useSelector((state) => {
+    return {
+      cityData: state.citylistStore.city
+    }
+  }, shallowEqual)
   // 列表渲染函数
   const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     const rowData = cityData.list[cityData.index[index]]
@@ -71,20 +77,18 @@ const CityList = (props) => {
       })
     }
   }
-  // 获取store全局数据中的数据
-  const { cityData } = useSelector((state) => {
-    return {
-      cityData: state.citylistStore.city
-    }
-  }, shallowEqual)
+
   // hook
   useEffect(() => {
     // 派发store事件
     dispatch(getCityListData())
-    if (cityData.list.length > 0 && listRef.current) {
+  }, [dispatch])
+
+  useEffect(() => {
+    if (cityData.index.length > 0) {
       listRef.current.measureAllRows()
     }
-  }, [dispatch, cityData.list.length])
+  }, [])
 
   // 获取每一行的高度
   const getRowHeight = ({ index }) => {
@@ -95,6 +99,11 @@ const CityList = (props) => {
     if (currentIndex !== data.startIndex && computedIndex) {
       setCurrentIndex(data.startIndex)
     }
+  }
+  // 跳转到对应的城市
+  const gotoIndexCity = (index) => {
+    setCurrentIndex(index)
+    listRef.current.scrollToRow(index)
   }
   return (
     <div className={stylepage.ignorecitylistpage}>
@@ -114,6 +123,7 @@ const CityList = (props) => {
               rowHeight={getRowHeight}
               onRowsRendered={onRowsRendered}
               rowRenderer={rowRenderer}
+              scrollToAlignment={"start"}
             />
           )
         }}
@@ -123,7 +133,11 @@ const CityList = (props) => {
         <ul>
           {cityData.index.map((item, index) => {
             return (
-              <li key={item} className={classNames({ [stylepage.active]: currentIndex === index })}>
+              <li
+                key={item}
+                onClick={() => gotoIndexCity(index)}
+                className={classNames({ [stylepage.active]: currentIndex === index })}
+              >
                 {item === "hot" ? "热" : item}
               </li>
             )

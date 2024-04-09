@@ -10,6 +10,7 @@ import "normalize.css"
 import "./styles/main.scss"
 // andt 样式修改
 import "./styles/custom.scss"
+// react-virtualized
 import "react-virtualized/styles.css"
 import VConsole from "vconsole"
 
