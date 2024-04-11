@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import style from "./index.module.scss"
 import { Grid, Skeleton, Divider } from "antd-mobile"
 // component
-import FxHeaderSearch from "./component/FxHeaderSearch"
+import FxHeaderSearch from "../../components/FxHeaderSearch"
 import FxSwiper from "./component/FxSwiper"
 import FxHeader from "../../components/FxHeader"
 import FxInfoItem from "../../components/FxInfoItem"

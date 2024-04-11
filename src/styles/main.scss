@@ -4,6 +4,24 @@ body {
   font-size: 14px;
   color: var(--fx-text1);
 }
+html,
+body{
+  height: 100%;
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root{
+  height: 100vh;
+}
+a{
+  text-decoration: none;
+}
 a {
   color: var(--fx-text2);
 }

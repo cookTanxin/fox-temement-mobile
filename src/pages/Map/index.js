@@ -186,6 +186,7 @@ function Map(props) {
       // 计算偏移像素
       const touchY = (window.innerHeight - 500) / 2 - e.changedTouches[0].clientY
       const touchX = window.innerWidth / 2 - e.changedTouches[0].clientX
+      mapRef.current.centerAndZoom(poinit, 16)
       // 移动地图
       mapRef.current.panBy(touchX, touchY)
     })

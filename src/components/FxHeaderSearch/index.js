@@ -7,6 +7,9 @@ class FxHeaderSearch extends Component {
   goPage = () => {
     this.props.history.push("/citylist")
   }
+  gotoMappage = () => {
+    this.props.history.push("/map")
+  }
   render() {
     return (
       <div className={style.header_search}>
@@ -18,8 +21,10 @@ class FxHeaderSearch extends Component {
             <img src={arrow} alt="arrow" />
           </div>
         </div>
+        {this.props.showinput && <div className={style.searchinput}>请输入关键字</div>}
+
         <div className={style.search}>
-          <img src={locationimg} alt="search" />
+          <img src={locationimg} alt="search" onClick={this.gotoMappage} />
         </div>
       </div>
     )

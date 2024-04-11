@@ -20,7 +20,7 @@ function Index(props) {
         <div className={styles.taglist}>
           {props.item.tags.map((tag, index) => {
             return (
-              <p key={index} className={styles.itemtag}>
+              <p key={index} className={styles.itemtag + " ellipsis"}>
                 {tag}
               </p>
             )
