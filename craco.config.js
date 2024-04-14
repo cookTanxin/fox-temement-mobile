@@ -1,6 +1,6 @@
 // node path 对象
 const path = require("path")
-
+// const CracoBabelLoader = require('craco-babel-loader');
 // 路径地址
 const resolve = (dir) => path.resolve(__dirname, dir)
 

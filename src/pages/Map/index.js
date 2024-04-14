@@ -42,14 +42,14 @@ function Map(props) {
     // 根据用户选择的城市定位到地图
     bdGeocoder.getPoint(
       null,
-      ({ lat, lng }) => {
+      async ({ lat, lng }) => {
         const point = new BMap.Point(lng, lat) // 创建点坐标
         mapRef.current.centerAndZoom(point, 11) // 初始化地图，设置中心点坐标和地图级
         // 添加控制条
         mapRef.current.addControl(new BMap.NavigationControl())
         mapRef.current.addControl(new BMap.ScaleControl())
         // 渲染覆盖物
-        renderMap(cityid)
+        await renderMap(cityid)
       },
       city
     )
@@ -57,20 +57,20 @@ function Map(props) {
     mapRef.current.addEventListener("movestart", () => {
       setShowRoomList(false)
     })
-  }, [city])
+  }, [city, cityid])
   useEffect(() => {
     // 初始化地图
     initMap()
   }, [initMap])
   // 渲染地图数据
-  const renderMap = async (id) => {
+  const renderMap = useCallback(async () => {
     Toast.show({
       icon: "loading",
       content: "加载中...",
       duration: 0
     })
     let params = {
-      id
+      id: cityid
     }
     const data = await getMapDataList(params)
     // 获取地图缩放大小
@@ -80,7 +80,7 @@ function Map(props) {
     })
     // 清除loading
     Toast.clear()
-  }
+  }, [cityid])
 
   // 计算要绘制的覆盖物类型和下一个缩放级别
   // 区   -> 11 ，范围：>=10 <12

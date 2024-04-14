@@ -2,7 +2,8 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App"
 import { Provider } from "react-redux"
-import store from "./store/index"
+import store, { persistor } from "./store/index"
+import { PersistGate } from "redux-persist/integration/react"
 
 // 样式重置
 import "normalize.css"
@@ -12,6 +13,7 @@ import "./styles/main.scss"
 import "./styles/custom.scss"
 // react-virtualized
 import "react-virtualized/styles.css"
+import "antd-mobile/bundle/css-vars-patch.css"
 import VConsole from "vconsole"
 
 new VConsole()
@@ -19,6 +21,8 @@ new VConsole()
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 )

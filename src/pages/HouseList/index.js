@@ -4,6 +4,7 @@ import styles from "./index.module.scss"
 // component
 import FxHeaderSearch from "../../components/FxHeaderSearch"
 import FxFilter from "./component/FxFilter"
+// redux
 import { useSelector } from "react-redux"
 
 function HoseList(props) {

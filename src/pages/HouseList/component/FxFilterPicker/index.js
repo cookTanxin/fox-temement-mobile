@@ -1,45 +1,35 @@
-import React from "react"
+import React, { useState } from "react"
 import { CascadePickerView } from "antd-mobile"
+import FxfilterFooter from "../FxfilterFooter"
 import styles from "./index.module.scss"
-const options = [
-  {
-    label: "浙江",
-    value: "浙江",
-    children: [
-      {
-        label: "杭州",
-        value: "杭州"
-      },
-      {
-        label: "宁波",
-        value: "宁波"
-      }
-    ]
-  },
-  {
-    label: "江苏",
-    value: "江苏",
-    children: [
-      {
-        label: "南京",
-        value: "南京"
-      },
-      {
-        label: "苏州",
-        value: "苏州"
-      }
-    ]
-  }
-]
+import PropTypes from "prop-types"
 function FxFilterPicker(props) {
+  const [selectval, setSelectval] = useState([])
+  const cancel = () => {
+    props.cancel()
+  }
+  const confirm = () => {
+    props.confirm(selectval, props.openType)
+  }
+  const changeData = (val) => {
+    setSelectval([...val])
+  }
   return (
     <div className={styles.filterpicker}>
       <CascadePickerView
-        options={options}
+        options={props.options}
+        onChange={changeData}
+        defaultValue={props.defaultValue}
         style={{ "--height": "250px", "--item-height": "2rem" }}
       />
+      <FxfilterFooter cancel={cancel} confirm={confirm}></FxfilterFooter>
     </div>
   )
+}
+FxFilterPicker.propTypes = {
+  options: PropTypes.array.isRequired,
+  openType: PropTypes.string.isRequired,
+  defaultValue: PropTypes.array.isRequired
 }
 
 export default FxFilterPicker
