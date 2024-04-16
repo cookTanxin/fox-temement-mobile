@@ -4,3 +4,8 @@ import request from "../utils/request"
 export function getQueryCondition(params) {
   return request("houses/condition", "get", params)
 }
+
+// 查询房屋列表
+export function getHouseList(params) {
+  return request("houses", "get", params)
+}

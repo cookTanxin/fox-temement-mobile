@@ -3,6 +3,7 @@ import styles from "./index.module.scss"
 // component
 import FxFilterTitle from "../FxFilterTitle"
 import FxFilterPicker from "../FxFilterPicker"
+import FxFilterMore from "../FxFilterMore"
 // api
 import { getQueryCondition } from "../../../../api/houselist"
 // redux
@@ -42,6 +43,14 @@ function FxFilter(props) {
     // 获取查询条件
     getQueryData(cityid)
   }, [cityid])
+  useEffect(() => {
+    const body = document.body
+    if (currentFilter) {
+      body.style.overflow = "hidden"
+    } else {
+      body.style.overflow = ""
+    }
+  }, [currentFilter])
   // 点击筛选标题
   const changeTitle = (item) => {
     // 标题筛选数据高亮
@@ -49,7 +58,7 @@ function FxFilter(props) {
     // 根据用户点击的选项 传入对应的数据给组件
     let newOptions = []
     // 解构数据
-    const { area, subway, rentType, price } = options
+    const { area, subway, rentType, price, roomType, oriented, floor, characteristic } = options
     Object.keys(titleStatusData).forEach((key) => {
       // 如果是点击的自身就直接设置高亮 如果不是还需要检查其他是否高亮 需要判断用户是否选择数据
       if (key === item.type) {
@@ -62,8 +71,8 @@ function FxFilter(props) {
         newtitleState[key] = true
       } else if (key === "price" && selectedval[key][0] !== "null") {
         newtitleState[key] = true
-      } else if (key === "more") {
-        newtitleState[key] = false
+      } else if (key === "more" && selectedval[key].length > 0) {
+        newtitleState[key] = true
       } else {
         newtitleState[key] = false
       }
@@ -78,6 +87,9 @@ function FxFilter(props) {
     }
     if (item.type === "price") {
       newOptions = [...price]
+    }
+    if (item.type === "more") {
+      newOptions = [roomType, oriented, floor, characteristic]
     }
     // 显示遮罩
     setShowMask(true)
@@ -122,7 +134,6 @@ function FxFilter(props) {
   const pickerconfirm = (data, type) => {
     setShowMask(false)
     setCurrentFilter("")
-    console.log(data, type)
     // 复杂数据类型 需要拷贝一份数据 才能操作 浅层拷贝
     const newSelectval = { ...selectedval }
     newSelectval[type] = data
@@ -134,7 +145,7 @@ function FxFilter(props) {
       newTitleStatus[type] = true
     } else if (type === "price" && data[0] !== "null") {
       newTitleStatus[type] = true
-    } else if (type === "more") {
+    } else if (type === "more" && data.length > 0) {
       newTitleStatus[type] = true
     } else {
       newTitleStatus[type] = false
@@ -142,6 +153,31 @@ function FxFilter(props) {
     // 更新数据
     setSelectedval(newSelectval)
     setTitleStatus(newTitleStatus)
+    // 更新筛选条件
+    const { area, mode, more, price } = newSelectval
+    let filterData = {}
+    console.log(newSelectval)
+    // 区域
+    const areaKey = area[0]
+    // 选中区域key
+    let areaValue = ""
+    if (area.length === 4) {
+      areaValue = area[2] !== "null" ? area[2] : area[1]
+    }
+    filterData[areaKey] = areaValue
+    // 方式
+    filterData.mode = mode[0]
+    // 租金
+    filterData.price = price[0]
+    // 更多
+    filterData.more = more.join("|")
+    // 把数据传递给父组件
+    props.filterData({ ...filterData })
+  }
+  // 关闭更多弹窗
+  const closemore = () => {
+    setCurrentFilter("")
+    setShowMask(false)
   }
   return (
     <div className={styles.filter}>
@@ -166,6 +202,14 @@ function FxFilter(props) {
             openType={currentFilter}
             defaultValue={selectedval[currentFilter]}
           ></FxFilterPicker>
+        )}
+        {showMask && currentFilter === "more" && (
+          <FxFilterMore
+            close={closemore}
+            confirmData={pickerconfirm}
+            select={selectedval["more"]}
+            options={currentOptions}
+          ></FxFilterMore>
         )}
       </div>
     </div>

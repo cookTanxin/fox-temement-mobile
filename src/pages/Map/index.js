@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 // component
 import FxNavBar from "../../components/FxNavBar"
 import FXRoomList from "./component/FxRoomList"
@@ -35,7 +35,7 @@ function Map(props) {
     }
   }, shallowEqual)
   // 初始化地图
-  const initMap = useCallback(() => {
+  const initMap = () => {
     mapRef.current = new BMap.Map("map") // 创建地图实例
     // 创建一个地址解析器实例
     const bdGeocoder = new BMap.Geocoder()
@@ -57,13 +57,14 @@ function Map(props) {
     mapRef.current.addEventListener("movestart", () => {
       setShowRoomList(false)
     })
-  }, [city, cityid])
+  }
+  // hook
   useEffect(() => {
     // 初始化地图
     initMap()
-  }, [initMap])
+  })
   // 渲染地图数据
-  const renderMap = useCallback(async () => {
+  const renderMap = async () => {
     Toast.show({
       icon: "loading",
       content: "加载中...",
@@ -80,7 +81,7 @@ function Map(props) {
     })
     // 清除loading
     Toast.clear()
-  }, [cityid])
+  }
 
   // 计算要绘制的覆盖物类型和下一个缩放级别
   // 区   -> 11 ，范围：>=10 <12

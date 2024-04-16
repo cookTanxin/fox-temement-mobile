@@ -10,7 +10,7 @@ Index.propTypes = {
 
 function Index(props) {
   return (
-    <div className={styles.roomitem}>
+    <div className={styles.ignoreroomitem}>
       <div className={styles.leftimg}>
         <Image src={joinImgUrl(props.item.houseImg)}></Image>
       </div>
