@@ -15,8 +15,10 @@ import "./styles/custom.scss"
 import "react-virtualized/styles.css"
 import "antd-mobile/bundle/css-vars-patch.css"
 import VConsole from "vconsole"
-
-new VConsole()
+// 只有在开发环境才显示 vconsole
+if (process.env.NODE_ENV !== "production") {
+  new VConsole()
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(

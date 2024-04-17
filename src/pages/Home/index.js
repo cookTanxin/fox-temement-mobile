@@ -8,6 +8,7 @@ import Index from "../Index"
 import Profile from "../Profile"
 import News from "../News"
 import HouseList from "../HouseList"
+import AuthRoute from "../../components/AuthRoute"
 // ui
 import { TabBar } from "antd-mobile"
 // icon
@@ -71,7 +72,8 @@ class Home extends Component {
           <Route exact path={"/home"} component={Index}></Route>
           <Route path={"/home/houseList"} component={HouseList}></Route>
           <Route path={"/home/news"} component={News}></Route>
-          <Route path={"/home/profile"} component={Profile}></Route>
+          <AuthRoute path={"/home/profile"} component={Profile}></AuthRoute>
+          {/*<Route></Route>*/}
         </div>
         <div className={style.tabbar_area}>
           <TabBar onChange={this.changeTab} activeKey={this.state.activeKey}>
