@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import style from "./index.module.scss"
 import { Swiper } from "antd-mobile"
+import { joinImgUrl } from "../../../../utils"
 class FxSwiper extends Component {
   // 渲染swiper
   renderSwiper = () => {
@@ -10,7 +11,7 @@ class FxSwiper extends Component {
         {this.props.data.map((item, index) => {
           return (
             <Swiper.Item key={item.id}>
-              <img src={item.imgSrc} alt="banner" />
+              <img src={joinImgUrl(item.imgSrc)} alt="banner" />
             </Swiper.Item>
           )
         })}
